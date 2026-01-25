@@ -138,9 +138,32 @@ const certificatesData: Certificate[] = [
 export function PortfolioTabs() {
   const [activeTab, setActiveTab] = useState<TabType>('projects');
   const [projectImageIndex, setProjectImageIndex] = useState<Record<number, number>>({});
+  const [touchStart, setTouchStart] = useState<Record<number, number>>({});
 
   const getImageIndex = (projectId: number) => {
     return projectImageIndex[projectId] || 0;
+  };
+
+  const handleTouchStart = (projectId: number, e: React.TouchEvent) => {
+    setTouchStart((prev) => ({
+      ...prev,
+      [projectId]: e.touches[0].clientX,
+    }));
+  };
+
+  const handleTouchEnd = (projectId: number, totalImages: number, e: React.TouchEvent) => {
+    const touchEnd = e.changedTouches[0].clientX;
+    const touchStartValue = touchStart[projectId] || 0;
+    const diff = touchStartValue - touchEnd;
+    
+    // Si el swipe es hacia la izquierda (diff > 50), ir a la siguiente imagen
+    if (diff > 50) {
+      nextImage(projectId, totalImages);
+    }
+    // Si el swipe es hacia la derecha (diff < -50), ir a la imagen anterior
+    else if (diff < -50) {
+      prevImage(projectId, totalImages);
+    }
   };
 
   const nextImage = (projectId: number, totalImages: number) => {
@@ -220,9 +243,13 @@ export function PortfolioTabs() {
                   className="group bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-xl overflow-hidden hover:border-[#0084ff] transition-all duration-300 hover:shadow-lg hover:shadow-[#0084ff]/20"
                 >
                   {/* Project Image Carousel */}
-                  <div className={`relative w-full bg-gradient-to-br from-[#0084ff]/20 to-[#00d4ff]/20 overflow-hidden ${
-                    project.id === 3 ? 'h-96 flex items-center justify-center' : 'h-64'
-                  }`}>
+                  <div 
+                    className={`relative w-full bg-gradient-to-br from-[#0084ff]/20 to-[#00d4ff]/20 overflow-hidden ${
+                      project.id === 3 ? 'h-96 flex items-center justify-center' : 'h-64'
+                    } cursor-grab active:cursor-grabbing`}
+                    onTouchStart={(e) => handleTouchStart(project.id, e)}
+                    onTouchEnd={(e) => handleTouchEnd(project.id, totalImages, e)}
+                  >
                     <Image
                       src={project.images[currentImageIndex]}
                       alt={`${project.name} - Imagen ${currentImageIndex + 1}`}
@@ -238,7 +265,7 @@ export function PortfolioTabs() {
                         {/* Previous Button */}
                         <button
                           onClick={() => prevImage(project.id, totalImages)}
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
                           aria-label="Imagen anterior"
                         >
                           <ChevronLeft className="w-5 h-5" />
@@ -247,7 +274,7 @@ export function PortfolioTabs() {
                         {/* Next Button */}
                         <button
                           onClick={() => nextImage(project.id, totalImages)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition-all duration-300 opacity-100 md:opacity-0 md:group-hover:opacity-100"
                           aria-label="Siguiente imagen"
                         >
                           <ChevronRight className="w-5 h-5" />
@@ -287,7 +314,7 @@ export function PortfolioTabs() {
                     </p>
 
                     {project.longDescription && (
-                      <p className="text-gray-600 dark:text-[#a0a8c0] text-xs mb-4 line-clamp-2">
+                      <p className="text-gray-600 dark:text-[#a0a8c0] text-xs mb-4">
                         {project.longDescription}
                       </p>
                     )}
