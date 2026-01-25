@@ -81,7 +81,7 @@ export function About() {
                       </div>
                       <div className="mt-4 space-y-2 text-gray-900 dark:text-white text-sm">
                         <p className="font-semibold">Adriana Marilu Diaz Mendo</p>
-                        <p className="text-gray-600 dark:text-[#a0a8c0]">DNI: 74600126</p>
+                        <p className="text-gray-600 dark:text-[#a0a8c0] text-xs tracking-wide">Ingeniera de Software con Inteligencia Artificial</p>
                       </div>
                     </div>
                   </div>

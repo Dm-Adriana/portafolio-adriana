@@ -1,8 +1,6 @@
 'use client';
 
-import React from "react"
-
-import { useState } from 'react';
+import React, { useState } from "react";
 import { Send } from 'lucide-react';
 
 // Funciones de validación y sanitización
@@ -19,7 +17,11 @@ const validateEmail = (email: string): boolean => {
 };
 
 const validateName = (name: string): boolean => {
-  return name.length >= 2 && name.length <= 100 && /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name);
+  return (
+    name.length >= 2 &&
+    name.length <= 100 &&
+    /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(name)
+  );
 };
 
 const validateMessage = (message: string): boolean => {
@@ -32,19 +34,25 @@ export function Contact() {
     email: '',
     message: '',
   });
+
   const [submitted, setSubmitted] = useState(false);
-  const [errors, setErrors] = useState<{name?: string; email?: string; message?: string}>({});
+  const [errors, setErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: sanitizeInput(value),
     }));
-    // Limpiar errores del campo actual
+
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({
         ...prev,
@@ -57,7 +65,8 @@ export function Contact() {
     const newErrors: typeof errors = {};
 
     if (!validateName(formData.name)) {
-      newErrors.name = 'El nombre debe tener entre 2 y 100 caracteres y solo contener letras.';
+      newErrors.name =
+        'El nombre debe tener entre 2 y 100 caracteres y solo contener letras.';
     }
 
     if (!validateEmail(formData.email)) {
@@ -65,7 +74,8 @@ export function Contact() {
     }
 
     if (!validateMessage(formData.message)) {
-      newErrors.message = 'El mensaje debe tener entre 5 y 1000 caracteres.';
+      newErrors.message =
+        'El mensaje debe tener entre 5 y 1000 caracteres.';
     }
 
     setErrors(newErrors);
@@ -75,22 +85,27 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsLoading(true);
 
-    // Obtener variables de entorno
     const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
-    
-    // Format the message with form data
+
+    if (!whatsappNumber) {
+      alert('El contacto no está disponible en este momento.');
+      setIsLoading(false);
+      return;
+    }
+
     const whatsappMessage = `Hola, mi nombre es ${formData.name}. ${formData.message}. Mi correo es: ${formData.email}`;
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      whatsappMessage
+    )}`;
+
     window.open(whatsappUrl, '_blank');
-    
-    // Show success message
+
     setSubmitted(true);
+
     setTimeout(() => {
       setFormData({ name: '', email: '', message: '' });
       setSubmitted(false);
@@ -107,112 +122,129 @@ export function Contact() {
           </span>
         </h2>
 
-        <p className="text-center text-gray-700 dark:text-[#a0a8c0] mb-12 text-lg">
-          Tengo interés en oportunidades freelance, proyectos innovadores y colaboraciones. 
-          Si tienes algo interesante en mente, ¡envíame un mensaje!
+        <p className="text-center text-gray-700 dark:text-[#a0a8c0] mb-12 text-lg leading-relaxed">
+          Estoy abierta a proyectos freelance, colaboraciones tecnológicas y
+          desafíos innovadores.  
+          Si tienes una idea o proyecto en mente, conversemos.
         </p>
 
         <div className="bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-2xl p-8 lg:p-12">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Name Input */}
+            {/* Nombre */}
             <div>
-              <label htmlFor="name" className="block text-sm font-semibold text-gray-900 dark:text-[#e0e6f7] mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Nombre Completo
               </label>
               <input
                 type="text"
-                id="name"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0e27] border ${errors.name ? 'border-red-500 dark:border-red-500' : 'border-gray-200 dark:border-[#2a3f5f]'} rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[#4a5a7a] focus:outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/30 transition-all duration-300`}
+                aria-invalid={!!errors.name}
+                className={`w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0e27] border ${
+                  errors.name
+                    ? 'border-red-500'
+                    : 'border-gray-200 dark:border-[#2a3f5f]'
+                } rounded-lg focus:ring-2 focus:ring-[#0084ff]/30`}
                 placeholder="Tu nombre"
               />
-              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              )}
             </div>
 
-            {/* Email Input */}
+            {/* Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-gray-900 dark:text-[#e0e6f7] mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Correo Electrónico
               </label>
               <input
                 type="email"
-                id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className={`w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0e27] border ${errors.email ? 'border-red-500 dark:border-red-500' : 'border-gray-200 dark:border-[#2a3f5f]'} rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[#4a5a7a] focus:outline-none focus:border-[#0084ff] focus:ring-2 focus:ring-[#0084ff]/30 transition-all duration-300`}
+                aria-invalid={!!errors.email}
+                className={`w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0e27] border ${
+                  errors.email
+                    ? 'border-red-500'
+                    : 'border-gray-200 dark:border-[#2a3f5f]'
+                } rounded-lg focus:ring-2 focus:ring-[#0084ff]/30`}
                 placeholder="tu@email.com"
               />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              )}
             </div>
 
-            {/* Message Input */}
+            {/* Mensaje */}
             <div>
-              <label htmlFor="message" className="block text-sm font-semibold text-gray-900 dark:text-[#e0e6f7] mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Mensaje
               </label>
               <textarea
-                id="message"
                 name="message"
+                rows={6}
                 value={formData.message}
                 onChange={handleChange}
                 required
-                rows={6}
-                className={`w-full px-4 py-3 bg-gradient-to-br from-white/30 dark:from-white/5 to-white/10 dark:to-white/5 backdrop-blur-md border ${errors.message ? 'border-red-500 dark:border-red-500' : 'border-white/30 dark:border-white/10'} rounded-lg text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[#4a5a7a] focus:outline-none focus:border-[#0084ff]/50 focus:ring-2 focus:ring-[#0084ff]/20 transition-all duration-300 resize-none shadow-[0_4px_16px_0_rgba(31,38,135,0.05)]`}
+                aria-invalid={!!errors.message}
+                className={`w-full px-4 py-3 resize-none leading-relaxed bg-gradient-to-br from-white/30 dark:from-white/5 to-white/10 dark:to-white/5 border ${
+                  errors.message
+                    ? 'border-red-500'
+                    : 'border-white/30 dark:border-white/10'
+                } rounded-lg focus:ring-2 focus:ring-[#0084ff]/20`}
                 placeholder="Cuéntame sobre tu proyecto o consulta..."
               />
-              {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+              {errors.message && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.message}
+                </p>
+              )}
             </div>
 
-            {/* Submit Button */}
+            {/* Botón */}
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full ${isLoading ? 'bg-gray-400' : 'bg-gradient-to-r from-[#0084ff] to-[#00d4ff] hover:from-[#0066cc] hover:to-[#00b8ff]'} text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl hover:shadow-[#0084ff]/50 flex items-center justify-center gap-2 group disabled:cursor-not-allowed disabled:hover:scale-100`}
+              className="w-full bg-gradient-to-r from-[#0084ff] to-[#00d4ff] text-white px-8 py-4 rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-[#0084ff]/40 transition-all"
             >
-              {submitted ? (
+              {submitted ? '✓ Enviado' : isLoading ? 'Enviando...' : (
                 <>
-                  <span>✓ Enviado</span>
-                </>
-              ) : isLoading ? (
-                <>
-                  <span className="inline-block animate-spin">⏳</span>
-                  <span>Enviando...</span>
-                </>
-              ) : (
-                <>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  <span>Enviar Mensaje</span>
+                  <Send className="w-5 h-5" />
+                  Enviar Mensaje
                 </>
               )}
             </button>
 
             {submitted && (
-              <div className="text-center text-[#00d4ff] text-sm font-semibold">
+              <p className="text-center text-[#00d4ff] font-semibold">
                 Gracias por tu mensaje. Te responderé pronto.
-              </div>
+              </p>
             )}
           </form>
         </div>
 
-        {/* Quick Contact Info */}
+        {/* Contacto rápido */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          <div className="bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-lg p-6 text-center hover:border-[#0084ff] transition-colors">
-            <div className="text-[#0084ff] dark:text-[#00d4ff] text-2xl font-bold mb-2">Email</div>
-            <p className="text-gray-700 dark:text-[#a0a8c0] text-sm">diazmendoadriana04@gmail.com</p>
-          </div>
-          <div className="bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-lg p-6 text-center hover:border-[#0084ff] transition-colors">
-            <div className="text-[#0084ff] dark:text-[#00d4ff] text-2xl font-bold mb-2">Teléfono</div>
-            <p className="text-gray-700 dark:text-[#a0a8c0] text-sm">+51 904 431 167</p>
-          </div>
-          <div className="bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-lg p-6 text-center hover:border-[#0084ff] transition-colors">
-            <div className="text-[#0084ff] dark:text-[#00d4ff] text-2xl font-bold mb-2">Ubicación</div>
-            <p className="text-gray-700 dark:text-[#a0a8c0] text-sm">Chiclayo, Lambayeque</p>
-          </div>
+          {[
+            ['Email', 'diazmendoadriana04@gmail.com'],
+            ['Teléfono', '+51 904 431 167'],
+            ['Ubicación', 'Chiclayo, Lambayeque'],
+          ].map(([title, value]) => (
+            <div
+              key={title}
+              className="bg-white dark:bg-[#1a1f3a] border border-gray-200 dark:border-[#2a3f5f] rounded-lg p-6 text-center hover:border-[#0084ff] hover:shadow-md hover:shadow-[#0084ff]/20 transition-all"
+            >
+              <h4 className="text-[#0084ff] text-xl font-bold mb-2">
+                {title}
+              </h4>
+              <p className="text-gray-700 dark:text-[#a0a8c0] text-sm">
+                {value}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

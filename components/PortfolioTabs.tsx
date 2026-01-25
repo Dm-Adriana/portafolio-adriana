@@ -309,12 +309,12 @@ export function PortfolioTabs() {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#00d4ff] transition-colors">
                       {project.name}
                     </h3>
-                    <p className="text-gray-600 dark:text-[#a0a8c0] text-sm mb-4">
+                    <p className="text-gray-600 dark:text-[#a0a8c0] text-sm mb-4 text-justify">
                       {project.description}
                     </p>
 
                     {project.longDescription && (
-                      <p className="text-gray-600 dark:text-[#a0a8c0] text-xs mb-4">
+                      <p className="text-gray-600 dark:text-[#a0a8c0] text-xs mb-4 text-justify">
                         {project.longDescription}
                       </p>
                     )}
