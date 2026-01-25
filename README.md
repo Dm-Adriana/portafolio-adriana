@@ -1,6 +1,6 @@
 # Portafolio 
 
-Un portafolio web moderno, responsivo y profesional desarrollado con React y Tailwind CSS. Diseñado con una estética sobria que combina negro, gris plomo y degradados en azul marino para transmitir profesionalismo, confianza e innovación.
+Un portafolio web moderno, responsivo y profesional desarrollado con React, Next.js y Tailwind CSS. Diseñado con una estética sobria que combina negro, gris plomo y degradados en azul marino para transmitir profesionalismo, confianza e innovación.
 
 ## 🎨 Características
 
@@ -70,7 +70,7 @@ Un portafolio web moderno, responsivo y profesional desarrollado con React y Tai
 
 ```bash
 # Clonar o descargar el proyecto
-git clone [https://portafolio-adriana.vercel.app/]
+git clone https://github.com/tu-usuario/tu-repositorio.git
 
 # Instalar dependencias
 npm install
@@ -83,7 +83,7 @@ npm run dev
 yarn dev
 ```
 
-El portafolio estará disponible en `aun en producción` 
+Demo: https://portafolio-adriana.vercel.app
 
 ### Build para Producción
 
@@ -215,4 +215,4 @@ Para preguntas o mejoras, consulta la documentación oficial:
 
 ---
 
-Creado por Ing. Software: Adriana Diaz Mendo
+Creado por Adriana Diaz Mendo – Ingeniera de Software
