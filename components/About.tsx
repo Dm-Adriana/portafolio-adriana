@@ -92,7 +92,7 @@ export function About() {
             {/* Info Section */}
             <div className="flex flex-col justify-center space-y-8">
               <div>
-                <p className="text-gray-700 dark:text-[#a0a8c0] leading-relaxed text-base lg:text-lg mb-6">
+                <p className="text-gray-700 dark:text-[#a0a8c0] leading-relaxed text-base lg:text-lg mb-6 text-justify">
                   Ingeniera de Software especializada en Inteligencia Artificial, 
                   con 3 años de experiencia en el desarrollo de aplicaciones web, 
                   móviles y de escritorio. Diseño soluciones inteligentes, escalables 
