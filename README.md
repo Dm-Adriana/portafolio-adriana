@@ -1,4 +1,4 @@
-# Portafolio Profesional - Adriana Diaz Mendo
+# Portafolio 
 
 Un portafolio web moderno, responsivo y profesional desarrollado con React y Tailwind CSS. Diseñado con una estética sobria que combina negro, gris plomo y degradados en azul marino para transmitir profesionalismo, confianza e innovación.
 
@@ -70,7 +70,7 @@ Un portafolio web moderno, responsivo y profesional desarrollado con React y Tai
 
 ```bash
 # Clonar o descargar el proyecto
-git clone [URL-del-repositorio]
+git clone [https://portafolio-adriana.vercel.app/]
 
 # Instalar dependencias
 npm install
