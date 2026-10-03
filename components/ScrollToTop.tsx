@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n';
 
 export function ScrollToTop() {
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
@@ -34,7 +36,7 @@ export function ScrollToTop() {
         <button
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] text-white p-3 rounded-lg shadow-lg hover:shadow-xl hover:shadow-[#0084ff]/50 transition-all duration-300 transform hover:scale-110 active:scale-95 z-40"
-          aria-label="Scroll to top"
+          aria-label={t.scrollTop}
         >
           <ArrowUp className="w-5 h-5" />
         </button>

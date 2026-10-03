@@ -6,17 +6,18 @@ import Script from 'next/script'
 import { ScrollToTop } from '@/components/ScrollToTop'
 import { Navigation } from '@/components/Navigation'
 import { ThemeProvider } from '@/components/theme-provider'
+import { LanguageProvider } from '@/lib/i18n'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Adriana Diaz Mendo - Desarrollador Web | Analista de Datos | Backend Developer',
-  description: 'Portafolio profesional de Adriana Diaz Mendo. Desarrollador Web, Analista de Datos y Backend Developer con experiencia en tecnologías modernas.',
-  keywords: 'Desarrollador Web, Backend Developer, Analista de Datos, Inteligencia Artificial, Portafolio',
+  title: 'Adriana Diaz Mendo - Desarrolladora Web | Analista de Datos | Backend Developer',
+  description: 'Portafolio profesional de Adriana Diaz Mendo. Desarrolladora Web, Analista de Datos y Backend Developer con experiencia en tecnologías modernas.',
+  keywords: 'Desarrolladora Web, Web Developer, Software Engineer, Backend Developer, Analista de Datos, Inteligencia Artificial, Portafolio',
   openGraph: {
-    title: 'Adriana Diaz Mendo - Desarrollador Web | Analista de Datos | Backend Developer',
+    title: 'Adriana Diaz Mendo - Desarrolladora Web | Analista de Datos | Backend Developer',
     description: 'Portafolio profesional de Adriana Diaz Mendo. Especializada en desarrollo web, análisis de datos e inteligencia artificial.',
     type: 'website',
     locale: 'es_ES',
@@ -32,26 +33,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Adriana Diaz Mendo - Desarrollador Web | Analista de Datos | Backend Developer',
+    title: 'Adriana Diaz Mendo - Desarrolladora Web | Analista de Datos | Backend Developer',
     description: 'Portafolio profesional de Adriana Diaz Mendo.',
     images: ['/og-image.png'],
   },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
 }
 
@@ -84,11 +71,13 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`font-sans antialiased bg-white dark:bg-[#0a0e27]`}>
+      <body className={`font-sans antialiased bg-[#f6f8fc] dark:bg-[#0a0e27]`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <Navigation />
-          {children}
-          <ScrollToTop />
+          <LanguageProvider>
+            <Navigation />
+            {children}
+            <ScrollToTop />
+          </LanguageProvider>
           <Analytics />
         </ThemeProvider>
       </body>

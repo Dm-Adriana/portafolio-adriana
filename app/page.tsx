@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 
 export default function Home() {
   return (
-    <main className="bg-white dark:bg-[#0a0e27]">
+    <main className="bg-[#f6f8fc] dark:bg-[#0a0e27]">
       <section id="hero">
         <Hero />
       </section>

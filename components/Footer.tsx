@@ -2,13 +2,20 @@
 
 import { Github, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
+import { LogoMark } from '@/components/Logo';
+import { useLanguage } from '@/lib/i18n';
 
 export function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-white dark:bg-[#0a0e27] border-t border-gray-200 dark:border-[#2a3f5f]">
       <div className="max-w-6xl mx-auto px-4 py-10">
+
+        <div className="flex justify-center mb-6">
+          <LogoMark className="w-11 h-11" />
+        </div>
 
         {/* Social Links */}
         <div className="flex justify-center items-center gap-6 mb-8">
@@ -64,41 +71,40 @@ export function Footer() {
             {/* SOBRE */}
             <div className="text-center sm:text-left">
               <h3 className="text-gray-900 dark:text-white font-semibold mb-2 text-xs sm:text-sm md:text-lg">
-                Sobre
+                {t.footer.about}
               </h3>
               <p className="text-gray-700 dark:text-[#a0a8c0]
                             text-[11px] sm:text-sm md:text-base
                             leading-snug sm:leading-relaxed
                             text-justify">
-                  Ingeniera de software apasionada por 
-                  crear soluciones de impacto digital.
+                  {t.footer.aboutText}
               </p>
             </div>
 
             {/* ENLACES - centrado en pantallas grandes */}
             <div className="text-center sm:text-left md:mx-auto">
               <h3 className="text-gray-900 dark:text-white font-semibold mb-2 text-xs sm:text-sm md:text-lg">
-                Enlaces
+                {t.footer.links}
               </h3>
               <ul className="space-y-1 text-[11px] sm:text-sm md:text-base">
                 <li>
                   <a href="#hero" className="text-gray-700 dark:text-[#a0a8c0] transition-all duration-300 hover:text-white hover:bg-[#0084ff] px-1 py-0.5 rounded">
-                    Inicio
+                    {t.nav.home}
                   </a>
                 </li>
                 <li>
                   <a href="#about" className="text-gray-700 dark:text-[#a0a8c0] transition-all duration-300 hover:text-white hover:bg-[#0084ff] px-1 py-0.5 rounded">
-                    Sobre
+                    {t.nav.about}
                   </a>
                 </li>
                 <li>
                   <a href="#portfolio" className="text-gray-700 dark:text-[#a0a8c0] transition-all duration-300 hover:text-white hover:bg-[#0084ff] px-1 py-0.5 rounded">
-                    Portafolio
+                    {t.nav.portfolio}
                   </a>
                 </li>
                 <li>
                   <a href="#contact" className="text-gray-700 dark:text-[#a0a8c0] transition-all duration-300 hover:text-white hover:bg-[#0084ff] px-1 py-0.5 rounded">
-                    Contacto
+                    {t.nav.contact}
                   </a>
                 </li>
               </ul>
@@ -107,23 +113,23 @@ export function Footer() {
             {/* SERVICIOS */}
             <div className="text-center sm:text-left">
               <h3 className="text-gray-900 dark:text-white font-semibold mb-2 text-xs sm:text-sm md:text-lg">
-                Servicios
+                {t.footer.services}
               </h3>
               <ul className="space-y-1 text-[11px] sm:text-sm md:text-base">
-                <li className="text-gray-700 dark:text-[#a0a8c0]">Desarrollo Web</li>
-                <li className="text-gray-700 dark:text-[#a0a8c0]">Backend</li>
-                <li className="text-gray-700 dark:text-[#a0a8c0]">Análisis de Datos</li>
+                <li className="text-gray-700 dark:text-[#a0a8c0]">{t.footer.services1}</li>
+                <li className="text-gray-700 dark:text-[#a0a8c0]">{t.footer.services2}</li>
+                <li className="text-gray-700 dark:text-[#a0a8c0]">{t.footer.services3}</li>
               </ul>
             </div>
           </div>
 
           {/* Copyright */}
           <div className="border-t border-gray-200 dark:border-[#2a3f5f] pt-6 text-center">
-            <p className="text-gray-500 dark:text-[#4a5a7a] text-xs sm:text-sm">
-              © {currentYear} Adriana Diaz Mendo. Todos los derechos reservados.
+            <p className="text-slate-500 dark:text-[#7c86a6] text-xs sm:text-sm">
+              © {currentYear} Adriana Diaz Mendo. {t.footer.rights}
             </p>
-            <p className="text-gray-500 dark:text-[#4a5a7a] text-[10px] sm:text-xs mt-1">
-              Diseñado y desarrollado por <span className="text-[#0084ff]">Adriana Diaz Mendo</span>
+            <p className="text-slate-500 dark:text-[#7c86a6] text-[10px] sm:text-xs mt-1">
+              {t.footer.madeBy} <span className="text-[#0084ff]">Adriana Diaz Mendo</span>
             </p>
           </div>
 

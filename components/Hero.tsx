@@ -3,11 +3,12 @@
 import { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, Briefcase } from 'lucide-react';
 import { FaWhatsapp } from "react-icons/fa";
-import Image from 'next/image';
-
-const roles = ['Desarrollador Web', 'Analista de Datos', 'Backend Developer'];
+import { HeroPortrait } from '@/components/HeroPortrait';
+import { useLanguage } from '@/lib/i18n';
 
 export function Hero() {
+  const { lang, t } = useLanguage();
+  const roles = t.hero.roles;
   const [displayedText, setDisplayedText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -79,6 +80,12 @@ export function Hero() {
     };
   }, [isMobile]);
 
+  // Reiniciar la animación de escritura al cambiar de idioma
+  useEffect(() => {
+    setDisplayedText('');
+    setIsDeleting(false);
+  }, [lang]);
+
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const typingSpeed = isDeleting ? 30 : 80;
@@ -102,55 +109,37 @@ export function Hero() {
     }
 
     return () => clearTimeout(timer);
-  }, [displayedText, roleIndex, isDeleting]);
+  }, [displayedText, roleIndex, isDeleting, roles]);
 
   return (
-    <section className="min-h-screen bg-white dark:bg-gradient-to-br dark:from-[#0a0e27] dark:via-[#1a1f3a] dark:to-[#0a0e27] flex items-center justify-center px-4 sm:px-6 py-8 md:py-20 pt-20 md:pt-32">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto w-full items-center">
+    <section className="relative overflow-hidden min-h-screen bg-gradient-to-br from-white via-[#f4f8ff] to-[#eaf3ff] dark:from-[#0a0e27] dark:via-[#1a1f3a] dark:to-[#0a0e27] flex items-center justify-center px-4 sm:px-6 py-8 md:py-20 pt-24 md:pt-32">
+      {/* Fondo decorativo */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -top-32 -right-32 w-[28rem] h-[28rem] rounded-full bg-[#00b4f0]/15 dark:bg-[#0084ff]/10 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 w-[26rem] h-[26rem] rounded-full bg-[#0084ff]/10 dark:bg-[#00d4ff]/5 blur-3xl" />
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto w-full items-center">
         {/* Left Column - Texto e imagen móvil */}
         <div className="flex flex-col justify-center space-y-6 md:space-y-8 order-2 md:order-1">
           <div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4 leading-tight">
-              Hola,
+              {t.hero.greeting}
             </h1>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#0084ff] to-[#00d4ff] bg-clip-text text-transparent mb-4 md:mb-8">
-              Soy Adriana Diaz Mendo
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-4 md:mb-8">
+              {t.hero.name}
             </h2>
           </div>
 
           {/* Typing Animation */}
           <div className="space-y-2">
-            <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-[#a0a8c0] font-medium min-h-7 md:min-h-8">
+            <p className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-[#a0a8c0] font-medium font-mono min-h-7 md:min-h-8">
               {displayedText}
               <span className="inline-block w-0.5 h-5 md:h-6 ml-1 bg-[#0084ff] animate-pulse" />
             </p>
           </div>
 
           {/* Imagen solo para móvil - oculta en tablet y desktop */}
-          <div className="md:hidden flex justify-center py-2">
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56">
-              {/* Glow Effect simplificado para móvil */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] rounded-full blur-xl opacity-30 scale-110" />
-              
-              {/* Image Container */}
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] via-[#00d4ff] to-[#0084ff] rounded-2xl opacity-40 blur-lg" />
-                  <div className="relative bg-gradient-to-br from-[#0084ff] to-[#00d4ff] p-1 rounded-2xl overflow-hidden shadow-lg">
-                    <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-xl overflow-hidden">
-                      <Image
-                        src="/adriana.png"
-                        alt="Adriana Diaz Mendo - Desarrollador Web"
-                        fill
-                        className="object-cover"
-                        priority
-                        sizes="(max-width: 640px) 176px, 208px"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="md:hidden flex justify-center pt-4 pb-2">
+            <HeroPortrait compact />
           </div>
 
           {/* Social Icons - Centrados solo en móvil */}
@@ -163,7 +152,7 @@ export function Hero() {
               aria-label="LinkedIn"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300" />
-              <div className="relative bg-white dark:bg-[#1a1f3a] p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#0084ff]">
+              <div className="relative bg-white dark:bg-[#1a1f3a] shadow-sm dark:shadow-none p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#0084ff]">
                 <Linkedin className="w-4 h-4 md:w-5 md:h-5 text-[#0084ff] group-hover:text-white transition duration-300" />
               </div>
             </a>
@@ -175,7 +164,7 @@ export function Hero() {
               aria-label="GitHub"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300" />
-              <div className="relative bg-white dark:bg-[#1a1f3a] p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#0084ff]">
+              <div className="relative bg-white dark:bg-[#1a1f3a] shadow-sm dark:shadow-none p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#0084ff]">
                 <Github className="w-4 h-4 md:w-5 md:h-5 text-[#0084ff] group-hover:text-white transition duration-300" />
               </div>
             </a>
@@ -187,7 +176,7 @@ export function Hero() {
               aria-label="WhatsApp"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-300" />
-              <div className="relative bg-white dark:bg-[#1a1f3a] p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#25D366]">
+              <div className="relative bg-white dark:bg-[#1a1f3a] shadow-sm dark:shadow-none p-2.5 md:p-3 rounded-lg group-hover:bg-[#0084ff] transition duration-300 border border-gray-200 dark:border-[#2a3f5f] group-hover:border-[#25D366]">
                 <FaWhatsapp className="w-4 h-4 md:w-5 md:h-5 text-[#0084ff] group-hover:text-white transition duration-300" />
               </div>
             </a>
@@ -200,14 +189,14 @@ export function Hero() {
               className="group relative flex items-center justify-center gap-2 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] hover:from-[#0066cc] hover:to-[#00b8ff] text-white px-5 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl hover:shadow-[#0084ff]/50 text-sm md:text-base"
             >
               <Mail className="w-4 h-4 md:w-5 md:h-5" />
-              Contáctame
+              {t.hero.contact}
             </a>
             <a
               href="#portfolio"
-              className="group relative flex items-center justify-center gap-2 border border-[#0084ff] text-[#0084ff] hover:bg-[#0084ff] hover:text-white px-5 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm md:text-base"
+              className="group relative flex items-center justify-center gap-2 bg-white/70 dark:bg-transparent border border-[#0084ff] text-[#0066cc] dark:text-[#0084ff] hover:bg-[#0084ff] hover:text-white px-5 py-2.5 md:px-6 md:py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95 text-sm md:text-base"
             >
               <Briefcase className="w-4 h-4 md:w-5 md:h-5" />
-              Ver Proyectos
+              {t.hero.projects}
             </a>
           </div>
         </div>
@@ -215,7 +204,7 @@ export function Hero() {
         {/* Right Column - Imagen para tablet y desktop */}
         <div className="hidden md:flex items-center justify-center order-1 md:order-2 mb-0">
           <div 
-            className="relative group w-80 h-80 lg:w-96 lg:h-96"
+            className="relative"
           >
             {/* Worm Light Trail Effect - Solo en desktop */}
             {!isMobile && isHovering && trailPoints.map((point, index) => {
@@ -266,29 +255,7 @@ export function Hero() {
               />
             )}
 
-            {/* Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] to-[#00d4ff] rounded-full blur-3xl opacity-0 group-hover:opacity-40 transition duration-500 scale-110" />
-            
-            {/* Image Container */}
-            <div className="relative w-full h-full flex items-center justify-center">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0084ff] via-[#00d4ff] to-[#0084ff] rounded-2xl opacity-0 group-hover:opacity-60 blur-xl transition duration-500" />
-                <div className="relative bg-gradient-to-br from-[#0084ff] to-[#00d4ff] p-1 rounded-2xl overflow-hidden shadow-2xl">
-                  <div 
-                    className="relative w-72 h-72 lg:w-80 lg:h-80 rounded-xl overflow-hidden"
-                  >
-                    <Image
-                      src="/adriana.png"
-                      alt="Adriana Diaz Mendo - Desarrollador Web"
-                      fill
-                      className="object-cover"
-                      priority
-                      sizes="(min-width: 768px) 288px, 320px"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <HeroPortrait />
           </div>
         </div>
       </div>
