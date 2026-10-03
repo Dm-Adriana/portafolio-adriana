@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { LogoMark } from '@/components/Logo';
 import { useLanguage } from '@/lib/i18n';
 
-const CV_URL = 'https://drive.google.com/file/d/1L0r5ddDeYvzRLKSJahDyrXeCCzwwMLs_/view?usp=sharing';
+const CV_URL = 'https://drive.google.com/file/d/1nibRR8okI23AziZsnemHeAfaxmgoW1tY/view?usp=sharing';
 
 function IdBadge() {
   const { t } = useLanguage();
@@ -161,8 +161,8 @@ export function About() {
   const { t } = useLanguage();
 
   const metrics = [
-    { value: '2+', label: t.about.years },
-    { value: '5+', label: t.about.projects },
+    { value: '+2', label: t.about.years },
+    { value: '+5', label: t.about.projects },
     { value: '4', label: t.about.clients },
   ];
 
