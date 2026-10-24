@@ -88,7 +88,7 @@ const projectsData: Project[] = [
       es: 'Aplicación móvil con autenticación por roles (gerencia, asesores e inversionistas) que permite seguimiento de clientes, control de inversiones, generación de contratos en PDF y análisis financiero en tiempo real.',
       en: 'Mobile app with role-based authentication (management, advisors and investors) for client tracking, investment control, PDF contract generation and real-time financial analysis.',
     },
-    images: ['/project3/app1.jpeg', '/project3/app2.jpeg', '/project3/app3.jpeg', '/project3/app4.jpeg', '/project3/app5.jpeg', '/project3/app6.jpeg'],
+    images: ['/project3/app1.webp', '/project3/app2.webp', '/project3/app3.jpeg', '/project3/app4.jpeg', '/project3/app5.jpeg', '/project3/app6.jpeg'],
     fit: 'contain',
     tall: true,
     benefits: {
@@ -152,6 +152,25 @@ const projectsData: Project[] = [
       en: 'Faculty instantly identify the students who need reasonable accommodations, with no manual requests to Student Wellbeing. This closes the institutional capability gap and strengthens inclusive teaching in the classroom.',
     },
     tools: ['React', 'JavaScript', 'Ellucian Experience SDK', 'Ellucian Ethos Integration', 'Banner API Designer', 'REST APIs', 'Banner (Oracle)', 'UI/UX Design', 'CSS responsivo', 'Webpack', 'Git / GitHub'],
+  },
+  {
+    id: 6,
+    name: { es: 'Compact 360 – App Móvil de Captación de Leads', en: 'Compact 360 – Lead Capture Mobile App' },
+    description: {
+      es: 'Aplicación móvil interna de Compact Estudios para gestionar leads con un embudo de ventas visual.',
+      en: 'Internal Compact Estudios mobile app for managing leads through a visual sales funnel.',
+    },
+    longDescription: {
+      es: 'Aplicación desarrollada con React Native que organiza los leads en un embudo de ventas por etapas (contacto inicial, nueva consulta y cotización), con filtros por tipo de servicio y secciones de leads, chats, tareas y ajustes. Integra en tiempo real WhatsApp Business API para atender a cada cliente desde la app. Componentes modulares con el patrón Atomic Design y pruebas unitarias con Jest.',
+      en: 'App built with React Native that organizes leads into a stage-based sales funnel (initial contact, new inquiry and quote), with service-type filters and sections for leads, chats, tasks and settings. Integrates the WhatsApp Business API in real time to serve each client from the app. Modular components using the Atomic Design pattern and unit tests with Jest.',
+    },
+    images: ['/project6/compact1.webp'],
+    fit: 'contain',
+    benefits: {
+      es: 'Seguimiento centralizado de cada lead y respuesta inmediata por WhatsApp desde una sola app, agilizando el proceso comercial.',
+      en: 'Centralized tracking of every lead and instant WhatsApp replies from a single app, speeding up the sales process.',
+    },
+    tools: ['React Native', 'JavaScript', 'Atomic Design', 'WhatsApp Business API', 'Jest'],
   },
 ];
 
