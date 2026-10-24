@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { LogoMark } from '@/components/Logo';
 import { useLanguage } from '@/lib/i18n';
 
-const CV_URL = 'https://drive.google.com/file/d/1nibRR8okI23AziZsnemHeAfaxmgoW1tY/view?usp=sharing';
+const CV_URL = 'https://drive.google.com/file/d/1OUQr2j5BuJxURR05vGHYCzA1paYoJwLq/view?usp=sharing';
 
 function IdBadge() {
   const { t } = useLanguage();
