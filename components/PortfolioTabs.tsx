@@ -95,7 +95,7 @@ const projectsData: Project[] = [
       es: 'Mejora en gestión de campo y acceso inmediato a información financiera para toma de decisiones.',
       en: 'Better field management and instant access to financial information for decision making.',
     },
-    tools: ['JavaScript', 'Capacitor', 'Node.js', 'Android Studio', 'JSON'],
+    tools: ['React Native', 'JavaScript', 'Redux Toolkit', 'AsyncStorage', 'Node.js', 'Android Studio'],
   },
   {
     id: 4,

@@ -161,7 +161,7 @@ export function About() {
   const { t } = useLanguage();
 
   const metrics = [
-    { value: '+2', label: t.about.years },
+    { value: '+3', label: t.about.years },
     { value: '+5', label: t.about.projects },
     { value: '4', label: t.about.clients },
   ];
