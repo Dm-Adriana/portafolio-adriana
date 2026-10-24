@@ -171,14 +171,14 @@ const achievementsData: Achievement[] = [
   {
     id: 5,
     title: {
-      es: 'Referente técnica (SME) en el ecosistema Ellucian',
-      en: 'Technical Subject Matter Expert (SME) in the Ellucian ecosystem',
+      es: 'Referente técnica (SME) en Frontend y Arquitectura – USS',
+      en: 'Technical Subject Matter Expert (SME) in Frontend & Architecture – USS',
     },
     description: {
-      es: 'Referente en integraciones ERP: APIs REST y componentes React para Ellucian Experience vía Ethos y Data Connect, matriz de accesos con restricciones de datos (FGAC/VPD) y pruebas end-to-end en TEST/PROD para un despliegue seguro.',
-      en: 'Go-to expert for ERP integrations: REST APIs and React components for Ellucian Experience via Ethos and Data Connect, an access matrix with data restrictions (FGAC/VPD) and end-to-end testing in TEST/PROD for a safe rollout.',
+      es: 'Desarrollo interfaces modulares con React, TypeScript y Context API para el ecosistema SaaS. Aplico Trunk Based Development, Clean Architecture y consumo de APIs RESTful con manejo centralizado de errores para despliegues seguros.',
+      en: 'I build modular interfaces with React, TypeScript and Context API for the SaaS ecosystem. I apply Trunk Based Development, Clean Architecture and RESTful API consumption with centralized error handling for safe deployments.',
     },
-    date: { es: '2026', en: '2026' },
+    date: { es: 'Febrero 2026 - Actualidad', en: 'February 2026 - Present' },
   },
   {
     id: 6,
@@ -206,12 +206,30 @@ const achievementsData: Achievement[] = [
   },
   {
     id: 1,
-    title: { es: 'Mentora de Practicante – Empresa Inmobiliaria', en: 'Intern Mentor – Real Estate Company' },
+    title: { es: 'Desarrollo de App Móvil Financiera – T&F Inmobiliaria', en: 'Financial Mobile App Development – T&F Real Estate' },
     description: {
-      es: 'Acompañamiento y orientación técnica a un practicante en su proceso de aprendizaje y adaptación profesional.',
-      en: 'Technical guidance and support for an intern throughout their learning and professional onboarding.',
+      es: 'Construí la aplicación principal de la empresa utilizando React Native. Implementé Redux Toolkit para el estado global y AsyncStorage, aplicando principios de UX defensivo para agilizar los flujos financieros.',
+      en: "Built the company's main app with React Native. Implemented Redux Toolkit for global state and AsyncStorage, applying defensive UX principles to streamline financial workflows.",
     },
-    date: { es: 'Febrero - Diciembre 2025', en: 'February - December 2025' },
+    date: { es: 'Febrero 2025 - Enero 2026', en: 'February 2025 - January 2026' },
+  },
+  {
+    id: 8,
+    title: { es: 'App Móvil de Captación de Leads – Compact Estudios', en: 'Lead Capture Mobile App – Compact Estudios' },
+    description: {
+      es: 'Desarrollé la aplicación móvil interna con React Native. Apliqué el patrón Atom Design para componentes modulares e integración en tiempo real con WhatsApp Business API, sumando pruebas unitarias con Jest.',
+      en: 'Developed the internal mobile app with React Native. Applied the Atomic Design pattern for modular components and real-time integration with the WhatsApp Business API, adding unit tests with Jest.',
+    },
+    date: { es: 'Septiembre - Diciembre 2024', en: 'September - December 2024' },
+  },
+  {
+    id: 9,
+    title: { es: 'MVP Móvil de Control Interno – Municipalidad J.L.O.', en: 'Internal Control Mobile MVP – J.L.O. Municipality' },
+    description: {
+      es: 'Desarrollé una aplicación móvil orientada a la gestión de recursos utilizando React Native y JavaScript (ES6+). Implementé flujos de navegación con React Navigation, separando la capa UI de los servicios.',
+      en: 'Developed a resource management mobile app using React Native and JavaScript (ES6+). Implemented navigation flows with React Navigation, separating the UI layer from the services.',
+    },
+    date: { es: 'Enero - Agosto 2024', en: 'January - August 2024' },
   },
   {
     id: 2,
